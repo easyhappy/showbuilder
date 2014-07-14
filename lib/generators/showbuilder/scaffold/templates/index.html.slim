@@ -1,0 +1,4 @@
+= show_index_header :admin, :<%= singular_table_name %>
+= show_model_table  @<%=plural_table_name %> do |row|
+  = row.show_text_column :id
+  = row.show_text_column :name
