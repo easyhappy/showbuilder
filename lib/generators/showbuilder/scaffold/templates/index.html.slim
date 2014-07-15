@@ -1,4 +1,5 @@
-= show_index_header :admin, :<%= singular_table_name %>
-= show_model_table  @<%=plural_table_name %> do |row|
-  = row.show_text_column :id
-  = row.show_text_column :name
+= show_index_header <%= controller_class_path %>, :<%= singular_name %>
+= show_model_table  @<%=plural_name %> do |row|
+<% attributes.each do |attribute| -%>
+  = row.show_text_column :<%= attribute.name%>
+<% end -%>
