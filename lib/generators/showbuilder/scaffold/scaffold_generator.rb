@@ -1,27 +1,13 @@
-require 'rails/generators/erb/scaffold/scaffold_generator'
+require 'rails/generators/rails/resource/resource_generator'
+require 'rails/generators/rails/scaffold_controller/scaffold_controller_generator'
 
 module Showbuilder
   module Generators
-    class ScaffoldGenerator < Erb::Generators::ScaffoldGenerator
-      source_root File.expand_path(File.join('..', 'templates'), __FILE__)
-
-      def copy_view_files
-        available_views.each do |view|
-          filename = filename_with_extensions view
-          template "#{view}.html.slim", File.join('app', 'views', controller_file_path, filename)
-        end
-      end
-
-      hook_for :form_builder, :as => :scaffold
-
-      protected
-      def available_views
-        ['index', 'edit', 'show', 'new', '_form']
-      end
-
-      def handler
-        :slim
-      end
+    class ScaffoldGenerator < Rails::Generators::ResourceGenerator
+      remove_hook_for :resource_controller
+      remove_class_option :actions
+      hook_for :slim, :in => :showbuilder, :as => :scaffold
+      #hook_for :scaffold_controller, in: :rails, required: true
     end
   end
 end
