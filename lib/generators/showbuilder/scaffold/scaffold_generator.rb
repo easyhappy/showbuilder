@@ -6,8 +6,9 @@ module Showbuilder
     class ScaffoldGenerator < Rails::Generators::ResourceGenerator
       remove_hook_for :resource_controller
       remove_class_option :actions
-      hook_for :slim, :in => :showbuilder, :as => :scaffold
-      #hook_for :scaffold_controller, in: :rails, required: true
+
+      class_option :slim, :default => true
+      hook_for     :slim,     :in => :showbuilder
     end
   end
 end
