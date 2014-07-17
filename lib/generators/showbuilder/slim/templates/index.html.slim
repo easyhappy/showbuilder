@@ -1,5 +1,7 @@
-= show_index_header <%= controller_class_path %>, :<%= singular_name %>
 = show_model_table  @<%=plural_name %> do |row|
 <% attributes.each do |attribute| -%>
   = row.show_text_column :<%= attribute.name%>
 <% end -%>
+<% base_path = controller_file_path.split('/').join('_') %>
+  = row.show_text_link_column      :edit_button,    :link => lambda{|model|edit_<%= base_path.singularize %>_path(model)}
+  = row.show_delete_link_column    :delete_button,    :link => lambda{|model|<%= base_path.singularize %>_path(model)}
