@@ -8,7 +8,15 @@ module Showbuilder
       def copy_view_files
         available_views.each do |view|
           filename = filename_with_extensions view
-          template "#{view}.html.slim", File.join('app', 'views', controller_file_path, filename)
+          
+          #如果config/showbuilder/xx.html.slim存在， 就使用自定义的文件
+          file_path = "#{view}.html.slim"
+          custom_file = File.join(Rails.root, 'config/showbuilder/templates', "#{view}.html.slim")
+          if File.exist?(custom_file)
+            file_path = custom_file
+          end
+
+          template file_path, File.join('app', 'views', controller_file_path, filename)
         end
       end
 
